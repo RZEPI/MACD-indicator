@@ -1,5 +1,5 @@
 import pandas as pd
-import matplotlib.pyplot as plplot
+import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 EMA26_PERIOD = 26
@@ -68,9 +68,9 @@ def check_how_intersect(macd, signal, index):
         return None
     
 
-def generate_plot(data_list, macd, signal, time_start, time_stop,fig_width=7, fig_height=7):
-    fig, ax = plplot.subplots(2)
-
+def generate_plot(data_list, macd, signal, title, time_start, time_stop,  fig_width=7, fig_height=7):
+    fig, ax = plt.subplots(2)
+    
     fig.set_figwidth(fig_width)
     fig.set_figheight(fig_height)
 
@@ -101,7 +101,8 @@ def generate_plot(data_list, macd, signal, time_start, time_stop,fig_width=7, fi
     ax[1].legend(handles=[line1, line2])
     ax[1].set_xlabel("Time")
     ax[1].set_ylabel("MACD")
-    plplot.show()
+    fig.suptitle(title, fontsize=15)
+    plt.show()
 
 
 max_money = -10
@@ -152,7 +153,7 @@ if income > 0:
 else:
     print("The loss is " + str(income))
 
-generate_plot(data_list, macd, signal, 0, len(sample_list), 12, 7)
-generate_plot(data_list, macd, signal, max_money_date-10, max_money_date+10)
-generate_plot(data_list, macd, signal, max_actions_date-10, max_actions_date+10)
+generate_plot(data_list, macd, signal, "Actions values and MACD indicator for period of 1000 days", 0, len(sample_list), 12, 7)
+generate_plot(data_list, macd, signal, "Best transaction - sell", max_money_date-10, max_money_date+10)
+generate_plot(data_list, macd, signal,"Best transaction - buy", max_actions_date-10, max_actions_date+10)
 
